@@ -1,0 +1,59 @@
+I want to refine and improve the site as follows:
+
+Hero Section / Initial Home Page
+
+Make the hero section visually interesting and engaging — not boring.
+
+The typing effect works, but the text and background should feel more lively (e.g., gradient text, subtle animations, parallax glow, or smooth motion).
+
+Ensure the hero section fills the viewport nicely, with no excessive empty space below on desktop or mobile.
+
+CTA Buttons
+
+Make the “Get Started” button functional: clicking it scrolls or navigates smoothly to the About section.
+
+Make other CTA buttons functional (like the “Contact” button) instead of placeholders.
+
+Style buttons consistently with hover effects and responsiveness.
+
+Responsive Design
+
+Make all sections fully responsive on mobile, tablet, and desktop.
+
+Fix excessive bottom space on mobile when scrolling — ensure each section fits content naturally.
+
+Ensure the nav bar, hero section, cards, and forms scale properly for different screen sizes.
+
+Navigation and Section Management
+
+Keep the existing smooth section transitions.
+
+Highlight the active nav link for the current section.
+
+Close the mobile nav menu when a link is clicked.
+
+Typing Effect
+
+Keep the current typing effect working smoothly.
+
+Optionally add a small subtle animation (like a blinking cursor or gradient text) to make it visually appealing.
+
+Visual Improvements
+
+Hero background could have soft animated glows or gradients.
+
+About/Works/Contact sections should feel connected and visually engaging.
+
+Ensure spacing, margins, and paddings are consistent across sections.
+
+Additional Requirements
+
+Use vanilla JS and CSS (no frameworks).
+
+Ensure all interactive elements are accessible on both desktop and mobile.
+
+Preserve the existing scrolling animations and glow effects.
+
+Ensure no overlapping or flickering happens in mobile or small screens.
+
+The goal is to have a modern, responsive, engaging single-page portfolio site with smooth interactions, functional buttons, visually appealing hero section, and proper spacing on all devices.
