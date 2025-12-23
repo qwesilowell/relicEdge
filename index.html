@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relic Edge - Software Development</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Relic Edge</div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link" data-section="home">Home</a></li>
+                <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+                <li><a href="#works" class="nav-link" data-section="works">Works</a></li>
+                <li><a href="#location" class="nav-link" data-section="location">Location</a></li>
+                <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section home-section active">
+            <div class="home-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="typing-text">Relic Edge</span>
+                    </h1>
+                    <p class="hero-tagline">Building Digital Experiences That Last</p>
+                    <button class="cta-button">Get Started</button>
+                </div>
+                <div class="animated-background">
+                    <div class="glow-element glow-1"></div>
+                    <div class="glow-element glow-2"></div>
+                    <div class="glow-element glow-3"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section about-section">
+            <div class="section-container">
+                <h2 class="section-title">About Relic Edge</h2>
+                <p class="about-text">
+                    Relic Edge is a forward-thinking software development company specializing in creating innovative digital solutions. We blend cutting-edge technology with elegant design to deliver products that make a difference.
+                </p>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <div class="skill-icon">💻</div>
+                        <h3>Web Development</h3>
+                        <p>Modern, responsive web applications</p>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">📱</div>
+                        <h3>Mobile Apps</h3>
+                        <p>Native and cross-platform solutions</p>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">🎨</div>
+                        <h3>UI/UX Design</h3>
+                        <p>Intuitive and beautiful interfaces</p>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">⚙️</div>
+                        <h3>Backend Development</h3>
+                        <p>Robust and scalable systems</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Works Section -->
+        <section id="works" class="section works-section">
+            <div class="section-container">
+                <h2 class="section-title">Our Works</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                        <div class="project-content">
+                            <h3>Project Alpha</h3>
+                            <p>Enterprise-level SaaS platform</p>
+                            <a href="#" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                        <div class="project-content">
+                            <h3>Project Beta</h3>
+                            <p>Mobile-first e-commerce solution</p>
+                            <a href="#" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                        <div class="project-content">
+                            <h3>Project Gamma</h3>
+                            <p>AI-powered analytics dashboard</p>
+                            <a href="#" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
+                        <div class="project-content">
+                            <h3>Project Delta</h3>
+                            <p>Real-time collaboration platform</p>
+                            <a href="#" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section id="location" class="section location-section">
+            <div class="section-container">
+                <h2 class="section-title">Our Location</h2>
+                <div class="location-content">
+                    <div class="location-info">
+                        <div class="location-icon">📍</div>
+                        <h3>San Francisco, CA</h3>
+                        <p>123 Innovation Street<br>San Francisco, California 94105</p>
+                    </div>
+                    <div class="map-placeholder">
+                        <div class="map-grid"></div>
+                        <p>Interactive map</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section contact-section">
+            <div class="section-container">
+                <h2 class="section-title">Get In Touch</h2>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder="Your Name" required>
+                        <label class="form-label">Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-input" placeholder="Your Email" required>
+                        <label class="form-label">Email</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-input form-textarea" placeholder="Your Message" required></textarea>
+                        <label class="form-label">Message</label>
+                    </div>
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+                <div id="formMessage" class="form-message"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Relic Edge. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

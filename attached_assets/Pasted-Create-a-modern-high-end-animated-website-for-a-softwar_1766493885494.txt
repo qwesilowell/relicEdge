@@ -1,0 +1,99 @@
+Create a modern, high-end, animated website for a software development brand called Relic Edge using HTML, CSS, and vanilla JavaScript (no frameworks unless absolutely necessary).
+
+The website should feel futuristic, clean, and interactive, clearly showing that Relic Edge is a software development company.
+
+🎨 Design & Style
+
+Dark-themed UI with accent colors (neon blue, purple, or cyan)
+
+Smooth gradients, glassmorphism or subtle glow effects
+
+Modern typography (sans-serif, tech-inspired)
+
+Responsive for desktop and mobile
+
+Minimal but visually impressive layout
+
+🧭 Pages / Sections (Single-page or animated multi-section)
+
+Implement the following sections with smooth animated transitions between them:
+
+Home
+
+Hero section with animated headline (typing, fade-in, or slide-in)
+
+Short tagline like “Building Digital Experiences”
+
+Animated call-to-action button
+
+About
+
+Brief description of Relic Edge as a software development company
+
+Text animations on scroll (fade, slide, staggered reveal)
+
+Icons or cards describing skills (Web, Mobile, UI/UX, Backend)
+
+Our Works
+
+Interactive project cards
+
+Hover animations (scale, glow, overlay)
+
+Smooth entrance animations when section appears
+
+Location
+
+Clean section showing company location
+
+Optional animated map placeholder or icon
+
+Subtle motion effects
+
+Contact
+
+Animated contact form (inputs animate on focus)
+
+Button hover effects
+
+Smooth submit interaction (no backend needed)
+
+✨ Animations & Interactions
+
+Smooth transitions when navigating between sections
+
+Use JavaScript to control page switching animations
+
+Animate text, buttons, cards, and icons
+
+Scroll-based animations (elements animate when they enter viewport)
+
+Smooth scrolling navigation
+
+🧠 Technical Requirements
+
+Use pure HTML, CSS, and JavaScript
+
+Clean and well-commented code
+
+Use CSS animations and transitions where possible
+
+Use JavaScript for section navigation and animation control
+
+Optimized for Replit environment
+
+🚀 Overall Goal
+
+Make the website feel premium, interactive, and impressive, showing that Relic Edge is a modern, skilled software development company with strong attention to UI/UX and animation.
+
+✅ Optional Enhancements (if you want to add later)
+
+Cursor-follow glow or custom cursor
+
+Loading screen animation
+
+Parallax scrolling
+
+Theme toggle (dark/light)
+
+Animated background (particles or gradient motion)
