@@ -2,23 +2,101 @@
 const navLinks = document.querySelectorAll('.nav-link');
 const sections = document.querySelectorAll('.section');
 
-function showSection(sectionId) {
-    sections.forEach(section => {
-        section.classList.remove('active');
-    });
+let typingTimeout; // track timeout globally
 
-    const targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.classList.add('active');
+function startTypingEffect(element) {
+    if (!element) return;
+
+    const fullText = element.textContent;
+    element.textContent = ''; // clear initial text
+    let index = 0;
+
+    function type() {
+        if (index < fullText.length) {
+            element.textContent += fullText[index];
+            index++;
+            typingTimeout = setTimeout(type, 120); // typing speed
+        } else {
+            // wait 2s, then delete smoothly
+            typingTimeout = setTimeout(deleteText, 2000);
+        }
     }
 
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('data-section') === sectionId) {
-            link.classList.add('active');
+    function deleteText() {
+        if (index > 0) {
+            element.textContent = fullText.slice(0, index - 1);
+            index--;
+            typingTimeout = setTimeout(deleteText, 80); // delete speed
+        } else {
+            // restart typing after short pause
+            typingTimeout = setTimeout(type, 500);
         }
+    }
+
+    type();
+}
+
+function stopTypingEffect() {
+    if (typingTimeout) {
+        clearTimeout(typingTimeout);
+        typingTimeout = null;
+    }
+}
+
+// Integrate with showSection
+function showSection(sectionId) {
+    const current = document.querySelector('.section.active');
+    const next = document.getElementById(sectionId);
+
+    if (current === next) return;
+
+    // section exit
+    if (current) {
+        current.classList.remove('active');
+        current.classList.add('exiting');
+        if (current.id === 'home') stopTypingEffect();
+        setTimeout(() => current.classList.remove('exiting'), 450);
+    }
+
+    // section enter
+    if (next) {
+        setTimeout(() => {
+            next.classList.add('active');
+            if (sectionId === 'home') {
+                const typingText = next.querySelector('.typing-text');
+                if (typingText) startTypingEffect(typingText);
+            }
+        }, 150);
+    }
+
+    // update nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.toggle('active', link.dataset.section === sectionId);
     });
 }
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => showSection('home'));
+
+// Hamburger Menu Toggle
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('nav-menu');
+
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    // Close menu when clicking a nav link
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+}
+
 
 navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
@@ -97,46 +175,3 @@ function showMessage(text, type) {
     }
 }
 
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
-        if (href !== '#') {
-            e.preventDefault();
-        }
-    });
-});
-
-// Typing effect for hero text
-const typingText = document.querySelector('.typing-text');
-if (typingText) {
-    const text = typingText.textContent;
-    typingText.textContent = '';
-
-    let index = 0;
-    const typeInterval = setInterval(() => {
-        if (index < text.length) {
-            typingText.textContent += text[index];
-            index++;
-        } else {
-            clearInterval(typeInterval);
-        }
-    }, 100);
-}
-
-// Parallax effect for glow elements
-document.addEventListener('mousemove', (e) => {
-    const glowElements = document.querySelectorAll('.glow-element');
-    const x = e.clientX / window.innerWidth;
-    const y = e.clientY / window.innerHeight;
-
-    glowElements.forEach((element, index) => {
-        const speed = (index + 1) * 20;
-        element.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-    });
-});
-
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    showSection('home');
-});
