@@ -125,10 +125,10 @@ document.querySelectorAll('.skill-card, .project-card').forEach(el => {
 });
 
 // CTA Button Click Handler
-const ctaButton = document.querySelector('.cta-button');
-if (ctaButton) {
-    ctaButton.addEventListener('click', () => {
-        showSection('contact');
+const getStartedBtn = document.getElementById('getStartedBtn');
+if (getStartedBtn) {
+    getStartedBtn.addEventListener('click', () => {
+        showSection('about');
     });
 }
 
