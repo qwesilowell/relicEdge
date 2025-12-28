@@ -1,23 +1,19 @@
-// Navigation and Section Management
-const navLinks = document.querySelectorAll('.nav-link');
-const sections = document.querySelectorAll('.section');
-
-let typingTimeout; // track timeout globally
+// Typing Effect
+let typingTimeout;
 
 function startTypingEffect(element) {
     if (!element) return;
 
     const fullText = element.textContent;
-    element.textContent = ''; // clear initial text
+    element.textContent = '';
     let index = 0;
 
     function type() {
         if (index < fullText.length) {
             element.textContent += fullText[index];
             index++;
-            typingTimeout = setTimeout(type, 120); // typing speed
+            typingTimeout = setTimeout(type, 120);
         } else {
-            // wait 2s, then delete smoothly
             typingTimeout = setTimeout(deleteText, 2000);
         }
     }
@@ -26,9 +22,8 @@ function startTypingEffect(element) {
         if (index > 0) {
             element.textContent = fullText.slice(0, index - 1);
             index--;
-            typingTimeout = setTimeout(deleteText, 80); // delete speed
+            typingTimeout = setTimeout(deleteText, 80);
         } else {
-            // restart typing after short pause
             typingTimeout = setTimeout(type, 500);
         }
     }
@@ -36,51 +31,10 @@ function startTypingEffect(element) {
     type();
 }
 
-function stopTypingEffect() {
-    if (typingTimeout) {
-        clearTimeout(typingTimeout);
-        typingTimeout = null;
-    }
-}
-
-// Integrate with showSection
-function showSection(sectionId) {
-    const current = document.querySelector('.section.active');
-    const next = document.getElementById(sectionId);
-
-    if (current === next) return;
-
-    // section exit
-    if (current) {
-        current.classList.remove('active');
-        current.classList.add('exiting');
-        if (current.id === 'home') stopTypingEffect();
-        setTimeout(() => current.classList.remove('exiting'), 450);
-    }
-
-    // section enter
-    if (next) {
-        setTimeout(() => {
-            next.classList.add('active');
-            if (sectionId === 'home') {
-                const typingText = next.querySelector('.typing-text');
-                if (typingText) startTypingEffect(typingText);
-            }
-        }, 150);
-    }
-
-    // update nav links
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.toggle('active', link.dataset.section === sectionId);
-    });
-}
-
-// Initialize
-document.addEventListener('DOMContentLoaded', () => showSection('home'));
-
 // Hamburger Menu Toggle
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('nav-menu');
+const navLinks = document.querySelectorAll('.nav-link');
 
 if (hamburger && navMenu) {
     hamburger.addEventListener('click', () => {
@@ -97,38 +51,46 @@ if (hamburger && navMenu) {
     });
 }
 
-
-navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const sectionId = link.getAttribute('data-section');
-        showSection(sectionId);
-    });
-});
-
-// Intersection Observer for scroll animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
+// Intersection Observer for active navigation
+const sections = document.querySelectorAll('.section');
+const navOptions = {
+    threshold: 0.3,
+    rootMargin: '-60px 0px -60% 0px'
 };
 
-const observer = new IntersectionObserver((entries) => {
+const navObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
+            const id = entry.target.getAttribute('id');
+
+            // Update active nav link
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${id}`) {
+                    link.classList.add('active');
+                }
+            });
         }
     });
-}, observerOptions);
+}, navOptions);
 
-document.querySelectorAll('.skill-card, .project-card').forEach(el => {
-    observer.observe(el);
+sections.forEach(section => {
+    navObserver.observe(section);
+});
+
+// Start typing effect on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const typingText = document.querySelector('.typing-text');
+    if (typingText) {
+        startTypingEffect(typingText);
+    }
 });
 
 // CTA Button Click Handler
 const getStartedBtn = document.getElementById('getStartedBtn');
 if (getStartedBtn) {
     getStartedBtn.addEventListener('click', () => {
-        showSection('about');
+        document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
     });
 }
 
@@ -140,25 +102,44 @@ if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const formData = new FormData(contactForm);
         const name = contactForm.querySelector('input[type="text"]').value;
         const email = contactForm.querySelector('input[type="email"]').value;
+        const subject = contactForm.querySelector('input.subject').value;
         const message = contactForm.querySelector('textarea').value;
 
         // Validate form
-        if (!name || !email || !message) {
+        if (!name || !email || !subject || !message) {
             showMessage('Please fill in all fields', 'error');
             return;
         }
 
-        // Simulate form submission
-        formMessage.classList.remove('success', 'error');
-        formMessage.textContent = 'Sending...';
-
-        setTimeout(() => {
-            showMessage('Message sent successfully! We\'ll get back to you soon.', 'success');
-            contactForm.reset();
-        }, 500);
+        // Submit to API
+        fetch("https://v2.cscdc.online/Relic-ManagementSystem/resources/contact/send", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                subject: subject,
+                message: message
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then(data => {
+                showMessage('Message sent successfully! We\'ll get back to you soon.', 'success');
+                contactForm.reset();
+            })
+            .catch(error => {
+                showMessage('There was an error sending your message. Please try again.', 'error');
+                console.error("Error:", error);
+            });
     });
 }
 
@@ -171,7 +152,6 @@ function showMessage(text, type) {
         setTimeout(() => {
             formMessage.classList.remove('success');
             formMessage.textContent = '';
-        }, 3000);
+        }, 5000);
     }
 }
-
