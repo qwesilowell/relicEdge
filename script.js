@@ -1,3 +1,34 @@
+// Toast Notification Function
+function showToast(title, body) {
+    const container = document.getElementById('toastContainer');
+    
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    
+    // Create title element
+    const toastTitle = document.createElement('div');
+    toastTitle.className = 'toast-title';
+    toastTitle.textContent = title;
+    
+    // Create body element
+    const toastBody = document.createElement('div');
+    toastBody.className = 'toast-body';
+    toastBody.textContent = body;
+    
+    // Append title and body to toast
+    toast.appendChild(toastTitle);
+    toast.appendChild(toastBody);
+    
+    // Add to container
+    container.appendChild(toast);
+    
+    // Remove after animation completes
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
 // Typing Effect
 let typingTimeout;
 
@@ -97,6 +128,7 @@ if (getStartedBtn) {
 // Contact Form Handler
 const contactForm = document.getElementById('contactForm');
 const formMessage = document.getElementById('formMessage');
+const submitButton = document.getElementById('submitButton');
 
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
@@ -109,9 +141,12 @@ if (contactForm) {
 
         // Validate form
         if (!name || !email || !subject || !message) {
-            showMessage('Please fill in all fields', 'error');
+            showToast('Error', 'Please fill in all fields');
             return;
         }
+
+        // Show loading state
+        submitButton.classList.add('loading');
 
         // Submit to API
         fetch("https://v2.cscdc.online/Relic-ManagementSystem/resources/contact/send", {
@@ -126,20 +161,24 @@ if (contactForm) {
                 message: message
             })
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json();
-            })
-            .then(data => {
-                showMessage('Message sent successfully! We\'ll get back to you soon.', 'success');
-                contactForm.reset();
-            })
-            .catch(error => {
-                showMessage('There was an error sending your message. Please try again.', 'error');
-                console.error("Error:", error);
-            });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Remove loading state
+            submitButton.classList.remove('loading');
+            showToast('Success', 'Message sent successfully! We\'ll get back to you soon.');
+            contactForm.reset();
+        })
+        .catch(error => {
+            // Remove loading state
+            submitButton.classList.remove('loading');
+            showToast('Error', 'There was an error sending your message. Please try again.');
+            console.error("Error:", error);
+        });
     });
 }
 

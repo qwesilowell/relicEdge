@@ -9,6 +9,9 @@
 </head>
 
 <body>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -170,7 +173,13 @@
                         <textarea class="form-input form-textarea" placeholder="Message" required></textarea>
                         <label class="form-label">Message</label>
                     </div>
-                    <button type="submit" class="submit-button">Send Message</button>
+
+                    <button type="submit" class="submit-button" id="submitButton">
+                        <span class="button-text">Send Message</span>
+                        <span class="spinner"></span>
+                    </button>
+
+                    <!-- <button type="submit" class="submit-button">Send Message</button> -->
                 </form>
                 <div id="formMessage" class="form-message"></div>
             </div>
